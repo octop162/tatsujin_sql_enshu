@@ -9,7 +9,6 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
     volumes:
-      - ./sample:/sample
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   pgadmin4:
