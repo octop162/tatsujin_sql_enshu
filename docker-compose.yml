@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  db:
+    build: .
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    volumes:
+      - ./sample:/sample
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  pgadmin4:
+      image: dpage/pgadmin4:4.2
+      container_name: pgadmin4
+      ports:
+          - 8000:80
+      volumes:
+          - ./docker/pgadmin4:/var/lib/pgadmin
+      environment:
+          PGADMIN_DEFAULT_EMAIL: postgres
+          PGADMIN_DEFAULT_PASSWORD: password
+      hostname: pgadmin4
+      depends_on:
+        - db
+      restart: always
