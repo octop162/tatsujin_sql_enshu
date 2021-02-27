@@ -29,6 +29,7 @@ SELECT MIN(seq + 1) AS gap
 
 
 -- 欠番を探せ：発展版
+DROP TABLE SeqTbl;
 CREATE TABLE SeqTbl
 ( seq INTEGER NOT NULL PRIMARY KEY);
 
@@ -68,6 +69,8 @@ SELECT '歯抜けあり ' AS gap
   FROM SeqTbl 
 HAVING COUNT(*) <> MAX(seq) - MIN(seq) + 1;
 
+-- 空
+DELETE FROM SeqTbl;
 
 -- 欠番があってもなくても一行返す 
 SELECT CASE WHEN COUNT(*) = 0 THEN 'テーブルが空です ' 
